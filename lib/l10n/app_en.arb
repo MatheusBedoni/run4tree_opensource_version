@@ -1,0 +1,569 @@
+{
+  "@@locale": "en",
+
+  "appTitle": "Run4Tree",
+
+  "splashArtCredit": "Art by @{handle}",
+  "@splashArtCredit": {
+    "description": "Credit shown at the bottom of the splash screen for the illustration artist",
+    "placeholders": {
+      "handle": { "type": "String" }
+    }
+  },
+
+  "loginTaglineRunPrefix": "Your run plants ",
+  "loginTaglineTreesHighlight": "real trees.\n",
+  "loginTaglineOffline": "Works 100% offline.",
+  "loginFeatureOfflineTitle": "No internet needed",
+  "loginFeatureOfflineSubtitle": "Track runs anywhere",
+  "loginFeatureNoSignupTitle": "No sign-up or password",
+  "loginFeatureNoSignupSubtitle": "Start running in seconds",
+  "loginFeaturePlantTreesTitle": "Plant real trees",
+  "loginFeaturePlantTreesSubtitle": "Track your real impact",
+  "loginStartButton": "Start now",
+  "loginChipSustainable": "SUSTAINABLE",
+  "loginChipGamified": "GAMIFIED",
+
+  "homeRunSavedMessage": "Run saved! {distance} km",
+  "@homeRunSavedMessage": {
+    "placeholders": {
+      "distance": { "type": "String" }
+    }
+  },
+  "homeRunSaveErrorMessage": "Error saving the run.",
+  "homeMapLoadingTitle": "Let's plant a forest...",
+  "homeMapLoadingSubtitle": "Getting GPS location",
+
+  "homeRunAdStartTitle": "READY TO GROW",
+  "homeRunAdStartSubtitle": "Your ads become seeds — 10 seeds plant one real tree.",
+  "homeRunAdFinishTitle": "GREAT WORK!",
+  "homeRunAdFinishSubtitle": "Saving your activity while this ad turns into seeds.",
+
+  "homeRunAdLoopWatch": "AD",
+  "homeRunAdLoopSeeds": "SEEDS",
+  "homeRunAdLoopTree": "REAL TREE",
+
+  "homeRunAdSeedsToNextTree": "{accumulated}/{total} seeds to your next tree",
+  "@homeRunAdSeedsToNextTree": {
+    "placeholders": {
+      "accumulated": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "homeRunAdSeedsGainedBadge": "{count, plural, =1{+1 seed} other{+{count} seeds}}",
+  "@homeRunAdSeedsGainedBadge": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "homeRunAdSeedsEarnedTitle": "{count, plural, =1{+1 SEED EARNED} other{+{count} SEEDS EARNED}}",
+  "@homeRunAdSeedsEarnedTitle": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "homeRunAdRewardTitle": "SEEDS EARNED",
+  "homeRunAdRewardSubtitle": "This ad's revenue just went into your next real tree.",
+  "homeRunAdRewardExplainer": "Reward confirmed: the revenue from this ad was added to your tree fund.",
+  "homeRunAdTreeTitle": "TREE COMPLETE!",
+  "homeRunAdTreeSubtitle": "Your seeds filled up — a real tree is being planted for you.",
+  "homeRunAdMissedTitle": "NO SEEDS THIS TIME",
+  "homeRunAdMissedSubtitle": "Seeds only come from ads watched to the end.",
+  "homeRunAdMissedExplainer": "The ad did not finish, so nothing was credited. Your next one still counts.",
+  "homeRunTreeEarnedBadge": "+1 tree",
+  "homeRunAdFooterNote": "Ads are how you grow seeds — no purchase needed. Rewards verified by RevenueCat, trees planted by Tree-Nation.",
+
+  "homeRunAdTip1": "Ads are the only way to earn seeds — 10 seeds become one real tree.",
+  "homeRunAdTip2": "Every ad you watch waters the seedling growing in your garden.",
+  "homeRunAdTip3": "A single tree can absorb around 22 kg of CO2 every year.",
+  "homeRunAdTip4": "Trees are planted by Tree-Nation, with a real certificate for each one.",
+
+  "homeUnitKm": "km",
+  "homeHudTimeLabel": "TIME",
+  "homeHudKmLabel": "KM",
+  "homeHudPausedValue": "PAUSED",
+  "homeHudPaceLabel": "MIN/KM",
+  "homeHudSpeedLabel": "KM/H",
+  "homeHudCaloriesLabel": "KCAL",
+  "homeHudLiveLabel": "LIVE",
+  "homeExerciseBike": "BIKE",
+  "homeExerciseWalk": "WALK",
+  "homeExerciseRun": "RUN",
+  "homeStartLabel": "START",
+  "homePauseButton": "PAUSE",
+  "homeResumeButton": "RESUME",
+  "homeFinishButton": "FINISH",
+  "homeNavActivity": "Activity",
+  "homeNavProgress": "Progress",
+  "homeNavForest": "Forest",
+  "homeNavProfile": "Profile",
+
+  "onboardingNameTitle": "What should we call you?",
+  "onboardingNameSubtitle": "We'll use your name to personalize your journey on Run4Tree.",
+  "onboardingNameFieldLabel": "Your name",
+  "onboardingAgeTitle": "What's your age?",
+  "onboardingAgeSubtitle": "This helps us calibrate goals and metrics that fit you better.",
+  "onboardingBodyTitle": "Weight and height",
+  "onboardingBodySubtitle": "We use this data to estimate calories and track your progress.",
+  "onboardingGoalTitle": "What's your weekly goal?",
+  "onboardingGoalSubtitle": "How many kilometers do you want to run per week? You can adjust this later.",
+  "onboardingContinueButton": "Continue",
+  "onboardingFinishButton": "Finish",
+  "onboardingSaveErrorMessage": "We couldn't save your data. Please try again.",
+
+  "fieldLabelAge": "Age",
+  "fieldLabelWeight": "Weight",
+  "fieldLabelHeight": "Height",
+  "fieldLabelWeeklyGoal": "Weekly goal",
+  "suffixYears": "years",
+  "suffixKg": "kg",
+  "suffixCm": "cm",
+  "suffixKm": "km",
+  "commonRetryButton": "Try again",
+
+  "profileAgeMemberSince": "{age} years old · member since {date}",
+  "@profileAgeMemberSince": {
+    "placeholders": {
+      "age": { "type": "int" },
+      "date": { "type": "String" }
+    }
+  },
+  "profileEditButton": "Edit profile",
+  "profileGoalCompletedMessage": "This week's goal is complete! 🎉",
+  "profileTreesLabel": "Trees",
+  "profileTotalKmLabel": "total km",
+  "profileRunsLabel": "Runs",
+  "profileBodyDataTitle": "Body data",
+  "profileBmiLabel": "BMI",
+  "profileLoadErrorMessage": "We couldn't load your profile. Please try again.",
+  "profileSaveErrorMessage": "We couldn't save your changes. Please try again.",
+  "profileLegalSectionTitle": "Legal & About",
+  "profileHowWePlantTreesButton": "How We Plant Real Trees",
+  "profileTermsButton": "Terms of Service",
+  "profilePrivacyButton": "Privacy Policy",
+  "profileLicensesButton": "Open Source Licenses",
+  "weeklyGoalProgressLabel": "{current} / {goal} km",
+  "@weeklyGoalProgressLabel": {
+    "placeholders": {
+      "current": { "type": "String" },
+      "goal": { "type": "String" }
+    }
+  },
+
+  "editProfileNameFieldLabel": "Name",
+  "editProfileSaveButton": "Save changes",
+
+  "exercisesEmptyTitle": "No runs recorded yet",
+  "exercisesEmptySubtitle": "Start a run on the main screen to see your history here.",
+  "exercisesLabelBike": "Bike",
+  "exercisesLabelWalk": "Walk",
+  "exercisesLabelRun": "Run",
+  "exercisesLoadErrorMessage": "We couldn't load your runs. Please try again.",
+  "exercisesKcalUnit": "kcal",
+
+  "exercisesHistoryTitle": "History",
+  "exercisesRecordsTitle": "Records",
+  "exercisesStatisticsTitle": "Statistics",
+  "exercisesSectionMore": "More",
+  "exercisesFilterAll": "All",
+  "exercisesRecordLongestDistance": "Longest distance",
+  "exercisesRecordLongestDuration": "Longest duration",
+  "exercisesRecordMostCalories": "Most kcal burned",
+  "exercisesRecordBestPace": "Best pace",
+  "exercisesRecordTopSpeed": "Top speed",
+  "exercisesRecordsEmptyMessage": "Finish your first activity to unlock records.",
+  "exercisesAllRecordsTitle": "All records",
+  "exercisesChartDistanceTitle": "Distance (km) - last {months} months",
+  "@exercisesChartDistanceTitle": {
+    "placeholders": {
+      "months": { "type": "int" }
+    }
+  },
+  "exercisesMonthlyBreakdownTitle": "Month by month",
+  "exercisesStatsEmptyMessage": "No activities recorded in this period.",
+  "exercisesSummaryActivities": "Activities",
+  "exercisesSummaryDuration": "Duration",
+  "exercisesSummaryDistance": "Distance",
+  "exercisesUnitKm": "km",
+  "exercisesUnitKmh": "km/h",
+  "exercisesUnitPerKm": "/km",
+  "exercisesUnitHour": "h",
+  "exercisesUnitMinute": "min",
+
+  "gardenTitle": "Your Garden",
+  "gardenSubtitle": "Watch ads to plant real trees.",
+  "gardenTreesPlanted": "{count, plural, one{tree planted} other{trees planted}}",
+  "@gardenTreesPlanted": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "gardenNextTreeLabel": "Next tree",
+  "gardenSeedsProgress": "{accumulated}/{total} seeds",
+  "@gardenSeedsProgress": {
+    "placeholders": {
+      "accumulated": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "gardenLoadErrorMessage": "We couldn't load your progress.",
+  "gardenWatchAdErrorMessage": "We couldn't play the ad right now.",
+  "gardenAdDismissedMessage": "Ad closed before finishing — watch it to the end to earn the seed.",
+  "gardenAdUnavailableMessage": "No ad available right now. Please try again shortly.",
+  "gardenAdRewardErrorMessage": "We couldn't confirm the reward. Please try again.",
+  "gardenWatchAdButton": "Watch ad and earn a seed",
+
+  "gardenCo2CompensatedLabel": "CO2 compensated",
+  "gardenCo2CompensatedValue": "{kg} kg",
+  "@gardenCo2CompensatedValue": {
+    "placeholders": {
+      "kg": { "type": "String" }
+    }
+  },
+  "gardenForestTitle": "Your forest",
+  "gardenForestEmptyMessage": "No trees planted yet. Watch ads to plant your first one.",
+  "gardenViewCertificate": "View certificate",
+  "gardenCertificateOpenError": "We couldn't open the certificate link.",
+  "gardenGlobalForestButton": "See the Global Forest",
+
+  "globalForestPageTitle": "Global Forest",
+  "globalForestSubtitle": "Every tree earned in Run4Tree — and the people celebrating them.",
+  "globalForestTotalLabel": "{count, plural, one{tree planted by everyone} other{trees planted by everyone}}",
+  "@globalForestTotalLabel": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "globalForestRecentTitle": "Recently planted",
+  "globalForestEmptyMessage": "No trees published yet. Be the first to plant one!",
+  "globalForestUnavailableMessage": "The Global Forest is unavailable right now. Please try again later.",
+
+  "exercisesDetailsPace": "Avg. Pace",
+  "exercisesDetailsAvgSpeed": "Avg. Speed",
+  "exercisesDetailsMaxSpeed": "Max Speed",
+  "exercisesDetailsElevationGain": "Elevation Gain",
+  "exercisesDetailsElevationLoss": "Elevation Loss",
+  "exercisesDetailsMaxElevation": "Max Elevation",
+  "exercisesDetailsDehydration": "Dehydration",
+  "exercisesDetailsSeedsEarned": "Seeds Earned",
+  "exercisesDetailsStartTime": "Start Time",
+  "exercisesDetailsDistance": "Distance ({unit})",
+  "@exercisesDetailsDistance": {
+    "placeholders": {
+      "unit": { "type": "String" }
+    }
+  },
+  "exercisesDetailsDuration": "Duration",
+  "exercisesDetailsCalories": "Calories",
+
+  "runCompletedTitle": "Run completed!",
+  "runCompletedSubtitle": "Great job planting {trees} trees",
+  "@runCompletedSubtitle": {
+    "placeholders": {
+      "trees": { "type": "int" }
+    }
+  },
+  "runCompletedShareButton": "Share",
+  "runCompletedShareSummary": "{exercise} • {distance} km\n\n⏱️ {duration}\n🔥 {calories} kcal\n⚡ Avg. speed: {speed} km/h\n📍 Avg. pace: {pace} min/km",
+
+  "shareRunTitle": "Share your progress",
+  "shareRunFormatStory": "Stories",
+  "shareRunFormatSquare": "Square",
+  "shareRunTabPhoto": "Photo",
+  "shareRunTabMap": "Map",
+  "shareRunTabColor": "Color",
+  "shareRunTabSticker": "Sticker",
+  "shareRunPhotoAdd": "Add",
+  "shareRunPhotoCamera": "Take a photo",
+  "shareRunPhotoGallery": "Choose from gallery",
+  "shareRunPhotoError": "We couldn't open that photo.",
+  "shareRunMapLight": "Light",
+  "shareRunMapSatellite": "Satellite",
+  "shareRunMapDark": "Dark",
+  "shareRunMapCartoon": "Run4Tree",
+  "shareRunColorForest": "Forest",
+  "shareRunColorSunrise": "Sunrise",
+  "shareRunColorNight": "Night",
+  "shareRunColorTransparent": "Transparent",
+  "shareRunStickerNone": "None",
+  "shareRunStickerHint": "Drag the sticker to move it",
+  "shareRunNoRoute": "This activity has no GPS route to show on a map.",
+  "shareRunExportError": "We couldn't create the image. Please try again.",
+  "shareRunCaptionFooter": "Every km I move helps plant real trees 🌳 #Run4Tree",
+  "shareCardDistance": "Distance",
+  "shareCardSeeds": "{count, plural, =1{+1 seed for real trees} other{+{count} seeds for real trees}}",
+  "@shareCardSeeds": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "shareCardTagline": "Moving for a greener planet",
+
+  "stickerCollectionTitle": "Sticker collection",
+  "stickerCollectionProgress": "{unlocked} of {total} unlocked",
+  "@stickerCollectionProgress": {
+    "placeholders": {
+      "unlocked": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "stickerCollectionHint": "Tap an unlocked sticker to make it your avatar and your marker on the map.",
+  "stickerCollectionInUse": "In use",
+  "stickerCollectionUseButton": "Use as avatar",
+  "stickerCollectionLockedLabel": "Locked",
+  "stickerCollectionLockedMessage": "Keep moving to unlock this one.",
+  "stickerCollectionLoadError": "Could not load your stickers.",
+  "stickerUnlockedTitle": "New sticker unlocked!",
+  "stickerUnlockedSubtitle": "{name} just joined your collection.",
+  "@stickerUnlockedSubtitle": {
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
+  "stickerUnlockedUseButton": "Use as avatar",
+  "stickerUnlockedCloseButton": "Nice!",
+  "profileStickersSectionTitle": "Your collection",
+  "profileStickersCardTitle": "Stickers",
+  "profileStickersCardSubtitle": "{unlocked} of {total} unlocked",
+  "@profileStickersCardSubtitle": {
+    "placeholders": {
+      "unlocked": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "profileAvatarChangeHint": "Tap your avatar to change it",
+
+  "stickerRequirementFree": "Yours from day one",
+  "stickerRequirementTotalDistance": "Cover {target} km in total",
+  "@stickerRequirementTotalDistance": {
+    "placeholders": {
+      "target": { "type": "String" }
+    }
+  },
+  "stickerRequirementSingleRun": "Cover {target} km in a single activity",
+  "@stickerRequirementSingleRun": {
+    "placeholders": {
+      "target": { "type": "String" }
+    }
+  },
+  "stickerRequirementStreak": "Move {target} days in a row",
+  "@stickerRequirementStreak": {
+    "placeholders": {
+      "target": { "type": "int" }
+    }
+  },
+  "stickerRequirementTrees": "{target, plural, =1{Plant your first tree} other{Plant {target} trees}}",
+  "@stickerRequirementTrees": {
+    "placeholders": {
+      "target": { "type": "int" }
+    }
+  },
+  "stickerRequirementRuns": "{target, plural, =1{Finish your first activity} other{Finish {target} activities}}",
+  "@stickerRequirementRuns": {
+    "placeholders": {
+      "target": { "type": "int" }
+    }
+  },
+  "stickerRequirementWeeklyGoal": "{target, plural, =1{Hit your weekly goal once} other{Hit your weekly goal {target} weeks}}",
+  "@stickerRequirementWeeklyGoal": {
+    "placeholders": {
+      "target": { "type": "int" }
+    }
+  },
+  "stickerRequirementNightRuns": "{target, plural, =1{Work out once after 8 PM} other{Work out {target} times after 8 PM}}",
+  "@stickerRequirementNightRuns": {
+    "placeholders": {
+      "target": { "type": "int" }
+    }
+  },
+  "stickerRequirementVariety": "Try all three activities: walk, run and bike",
+
+  "stickerNameFallback": "Sticker #{id}",
+  "@stickerNameFallback": {
+    "placeholders": {
+      "id": { "type": "String" }
+    }
+  },
+  "stickerName1": "Dawn Swallow",
+  "stickerName2": "Monarch",
+  "stickerName3": "Hawk Moth",
+  "stickerName4": "Tiger Moth",
+  "stickerName5": "Katydid",
+  "stickerName6": "Golden Moth",
+  "stickerName7": "Horned Beetle",
+  "stickerName8": "Apollo Butterfly",
+  "stickerName9": "Honeybee",
+  "stickerName10": "Tree Climber",
+  "stickerName11": "Ladybug",
+  "stickerName12": "Garden Spider",
+  "stickerName13": "Emerald Caterpillar",
+  "stickerName14": "Dragonfly",
+
+  "profileEnvironmentalEducationButton": "Environmental Education",
+  "educationPageTitle": "Environmental Education",
+  "educationForestsTitle": "The Importance of Forests",
+  "educationForestsBody": "Forests are the lungs of our planet. They purify the air we breathe, filter the water we drink, and provide habitat for over 80% of terrestrial biodiversity. By planting trees, we help restore these vital ecosystems and support the communities that depend on them.",
+  "educationGlobalWarmingTitle": "Global Warming & Risks",
+  "educationGlobalWarmingBody": "Global temperatures have risen by approximately 1.1°C since the pre-industrial era, leading to extreme weather, rising sea levels, and loss of biodiversity. Without significant action to reduce emissions, we risk irreversible damage to our planet's climate systems.",
+  "educationCo2Title": "The Role of CO2",
+  "educationCo2Body": "Carbon dioxide (CO2) is the primary greenhouse gas driving climate change. Human activities release over 35 billion tons of CO2 into the atmosphere each year. Trees play a critical role in mitigating this by absorbing CO2 and storing carbon in their trunks, branches, and roots.",
+
+  "homeCommunityButtonLabel": "GROUP",
+  "homeCommunityBadge": "NEW",
+  "communityPageTitle": "Group Challenge",
+  "communityHeroTitle": "Plant trees together",
+  "communityHeroSubtitle": "Exercise together: every group workout grows the group's forest and climbs the ranking.",
+  "communityCurrentChallengeTitle": "Current challenge",
+  "communityNoChallengeTitle": "No active challenge yet",
+  "communityNoChallengeBody": "A new group challenge is coming soon. Stay tuned!",
+  "communityComingSoon": "COMING SOON",
+  "communitySeedsLabel": "Seeds",
+  "communityTreesLabel": "Trees",
+  "communityParticipantsLabel": "Participants",
+  "communityJoinButton": "Join challenge",
+  "communityHowItWorksTitle": "How it works",
+  "communityStepJoinTitle": "Join a challenge",
+  "communityStepJoinBody": "Each challenge runs for a limited time with a shared goal.",
+  "communityStepWatchTitle": "Exercise with your group",
+  "communityStepWatchBody": "Start exercises from the group. Their ads add seeds to the group's forest, and every exercise counts in the ranking.",
+  "communityStepPlantTitle": "Plant real trees",
+  "communityStepPlantBody": "When the group reaches the goal, real trees are planted. Your personal runs are not affected.",
+  "communitySeedsProgress": "{collected} / {goal} seeds",
+  "@communitySeedsProgress": {
+    "placeholders": {
+      "collected": { "type": "int" },
+      "goal": { "type": "int" }
+    }
+  },
+  "communityTimeLeftDays": "{count}d left",
+  "@communityTimeLeftDays": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "communityTimeLeftHours": "{count}h left",
+  "@communityTimeLeftHours": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "communityTimeLeftMinutes": "{count}m left",
+  "@communityTimeLeftMinutes": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "communityRealTreesPlanted": "{count, plural, =1{1 real tree already planted by this group} other{{count} real trees already planted by this group}}",
+  "@communityRealTreesPlanted": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "communityGoalReached": "Goal reached! Thank you, team.",
+  "communityJoinedLabel": "You're in this group!",
+  "communityJoinError": "Couldn't join the challenge. Check your connection and try again.",
+  "communityParticipantsTitle": "Ranking",
+  "communityNoParticipants": "No one here yet. Be the first to join!",
+  "communityParticipantFallbackName": "Runner",
+  "communityYouTag": "YOU",
+  "communityStartExerciseButton": "Start a group exercise",
+  "communityGroupExerciseCaption": "Every group exercise counts in the ranking. Its ads grow the group's forest, verified by RevenueCat.",
+  "communityExercisesLabel": "Exercises",
+  "communityParticipantWorkouts": "{count, plural, =1{1 exercise} other{{count} exercises}}",
+  "@communityParticipantWorkouts": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "communityParticipantMinutes": "{count} min",
+  "@communityParticipantMinutes": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "communityWorkoutCounted": "Exercise counted for {group}!",
+  "@communityWorkoutCounted": {
+    "placeholders": { "group": { "type": "String" } }
+  },
+  "communityWorkoutTooShort": "This exercise was too short to count in the ranking.",
+  "communityWorkoutFailed": "Couldn't record this exercise in the group. Check your connection.",
+  "homeGroupExerciseLabel": "GROUP EXERCISE",
+  "homeGroupExerciseHint": "Counts in the group ranking",
+  "homeGroupExerciseCancel": "Exercise solo instead",
+  "homeRunAdGroupRewardSubtitle": "Verified by RevenueCat and added to {group}'s forest.",
+  "@homeRunAdGroupRewardSubtitle": {
+    "placeholders": { "group": { "type": "String" } }
+  },
+  "homeRunAdGroupTreeTitle": "GROUP TREE GROWN!",
+  "homeRunAdGroupTreeSubtitle": "{group} gathered enough seeds for another tree.",
+  "@homeRunAdGroupTreeSubtitle": {
+    "placeholders": { "group": { "type": "String" } }
+  },
+  "homeRunAdGroupRewardExplainer": "In group exercises, ad seeds go to the group's forest instead of your personal tree.",
+  "pushPromptTitle": "Know the moment your tree is planted",
+  "pushPromptBodyGroup": "We'll tell you when your group plants a real tree — with the species and the country — and when the ranking changes.",
+  "pushPromptBodyExercise": "We'll tell you the moment your seeds become a real tree, with the species, the country and the certificate.",
+  "pushPromptAccept": "Turn on notifications",
+  "pushPromptLater": "Not now",
+  "gardenPendingTreeTitle": "On its way 🌱",
+  "gardenPendingTreeBody": "Tree #{number} is yours. We'll notify you when it's planted and the certificate is ready.",
+  "@gardenPendingTreeBody": {
+    "placeholders": { "number": { "type": "int" } }
+  },
+  "gardenPendingTreeStatus": "Planting in progress",
+  "communityTreesPending": "{count, plural, =1{1 more tree secured, on its way} other{{count} more trees secured, on their way}}",
+  "@communityTreesPending": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "feedTitle": "Latest trees",
+  "feedAnonymousAuthor": "A Run4Tree runner",
+  "feedTreeTitle": "A new tree was earned",
+  "feedMyTreeTitle": "Your tree #{number}",
+  "@feedMyTreeTitle": { "placeholders": { "number": { "type": "int" } } },
+  "feedGroupTreeTitle": "{group} earned a tree",
+  "@feedGroupTreeTitle": { "placeholders": { "group": { "type": "String" } } },
+  "feedGroupFallback": "A group",
+  "feedPlantingInProgress": "🌱 Planting in progress",
+  "feedShareMyTree": "Celebrate this tree",
+  "feedActionDelete": "Delete my post",
+  "feedActionReport": "Report post",
+  "feedActionHideAuthor": "Hide posts from this person",
+  "feedPlantingDetails": "Planting details",
+  "feedDetailsPending": "This tree is secured and on its way. The species, the place and the certificate show up here as soon as it's in the ground.",
+  "feedDetailsSpecies": "Species",
+  "feedDetailsCountry": "Country",
+  "feedDetailsProject": "Project",
+  "feedDetailsCo2": "CO₂",
+  "feedDetailsCo2Value": "{kg} kg over its lifetime",
+  "@feedDetailsCo2Value": { "placeholders": { "kg": { "type": "int" } } },
+  "feedDeleteConfirm": "Delete your message? The tree stays in the Global Forest.",
+  "feedDeleted": "Your message was deleted.",
+  "feedReportConfirm": "Report this post? We'll review it, and it disappears if others report it too.",
+  "feedReported": "Thanks — the post was reported.",
+  "feedAuthorHidden": "You won't see posts from this person anymore.",
+  "feedCancel": "Cancel",
+  "feedConfirm": "Confirm",
+  "feedTimeNow": "now",
+  "feedTimeMinutes": "{minutes} min",
+  "@feedTimeMinutes": { "placeholders": { "minutes": { "type": "int" } } },
+  "feedTimeHours": "{hours} h",
+  "@feedTimeHours": { "placeholders": { "hours": { "type": "int" } } },
+  "feedTimeDays": "{days} d",
+  "@feedTimeDays": { "placeholders": { "days": { "type": "int" } } },
+  "feedErrorAlreadyPosted": "You've already celebrated this tree.",
+  "feedErrorAlreadyReported": "You've already reported this post.",
+  "feedErrorRateLimited": "That's a lot of posts! Try again in a little while.",
+  "feedErrorInvalidMessage": "Write a message of up to 280 characters.",
+  "feedErrorNotAllowed": "This action isn't available for this post.",
+  "feedErrorGeneric": "Something went wrong. Check your connection and try again.",
+  "feedComposeTitle": "Celebrate your tree",
+  "feedComposeSubtitle": "Tell everyone about tree #{number}. Only people who plant a tree can post here.",
+  "@feedComposeSubtitle": { "placeholders": { "number": { "type": "int" } } },
+  "feedComposeStickerLabel": "Pick a sticker from your collection",
+  "feedComposeHint": "My first tree! 🌳",
+  "feedComposePostingAs": "Posting as {name}",
+  "@feedComposePostingAs": { "placeholders": { "name": { "type": "String" } } },
+  "feedComposePostingAnonymous": "Posting without a name",
+  "feedComposeRules": "Keep it kind. Posts can be reported and removed.",
+  "feedComposePublish": "Post to the Global Forest",
+  "feedUpdatesOptInTitle": "Tell me when others plant 🌍",
+  "feedUpdatesOptInBody": "At most one notification now and then, when people celebrate new trees.",
+  "celebrationTitle": "Tree #{number} is yours! 🎉",
+  "@celebrationTitle": { "placeholders": { "number": { "type": "int" } } },
+  "celebrationTitleNoNumber": "A new tree is yours! 🎉",
+  "celebrationPlantedBody": "It's already in the ground, planted with the ads you watched.",
+  "celebrationPlantedBodyWhere": "{where} — already in the ground, planted with the ads you watched.",
+  "@celebrationPlantedBodyWhere": { "placeholders": { "where": { "type": "String" } } },
+  "celebrationPendingBody": "It's secured and on its way. We'll let you know when it's in the ground and the certificate is ready.",
+  "celebrationInFeed": "Your tree is already in the Global Forest. Want to celebrate it with a message?",
+  "celebrationShareButton": "Celebrate in the feed",
+  "celebrationNotNow": "Not now"
+}
