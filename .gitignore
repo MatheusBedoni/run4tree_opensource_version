@@ -71,3 +71,7 @@ SHIPATON.md
 # Parâmetros (sem segredo) das Cloud Functions — versionados de propósito.
 functions/.env.run4tree-205c0
 docs/
+!docs/
+docs/*
+!docs/images/
+!docs/images/**

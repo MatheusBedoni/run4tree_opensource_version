@@ -1,4 +1,8 @@
-# Run4Tree 🌱🏃
+<p align="center">
+  <img src="docs/images/run4tree-logo.png" alt="Logo do Run4Tree" width="180">
+</p>
+
+<h1 align="center">Run4Tree 🌱🏃</h1>
 
 Run4Tree é um aplicativo Flutter de corrida, caminhada e ciclismo que transforma atividade física e receita de anúncios em progresso para o plantio de árvores reais.
 
@@ -9,6 +13,45 @@ Esta é a edição open source do projeto. Ela mantém a experiência individual
 A versão oficial e completa do Run4Tree está disponível na Google Play:
 
 [Baixar o Run4Tree na Google Play](https://play.google.com/store/apps/details?id=com.run4tree.app)
+
+## Veja o Run4Tree em ação
+
+Clique na imagem para assistir à demonstração no YouTube:
+
+<p align="center">
+  <a href="https://www.youtube.com/shorts/NXp-ivzOAGs">
+    <img src="https://img.youtube.com/vi/NXp-ivzOAGs/hqdefault.jpg" alt="Assistir à demonstração do Run4Tree no YouTube" width="520">
+  </a>
+</p>
+
+[Assistir ao vídeo no YouTube](https://www.youtube.com/shorts/NXp-ivzOAGs)
+
+## Imagens do aplicativo oficial
+
+As capturas abaixo apresentam a experiência completa disponível no aplicativo oficial. Alguns recursos exibidos, como desafios em grupo e floresta global, não fazem parte desta edição open source.
+
+<table>
+  <tr>
+    <td align="center"><img src="docs/images/activity-map.png" alt="Mapa e acompanhamento de atividade" width="220"><br><sub>Mapa e atividade</sub></td>
+    <td align="center"><img src="docs/images/progress.jpeg" alt="Progresso e histórico de exercícios" width="220"><br><sub>Progresso e histórico</sub></td>
+    <td align="center"><img src="docs/images/personal-garden.jpeg" alt="Jardim pessoal" width="220"><br><sub>Jardim pessoal</sub></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="docs/images/profile.png" alt="Perfil do usuário" width="220"><br><sub>Perfil</sub></td>
+    <td align="center"><img src="docs/images/sticker-collection.jpeg" alt="Coleção de adesivos" width="220"><br><sub>Coleção de adesivos</sub></td>
+    <td align="center"><img src="docs/images/share-progress.jpeg" alt="Compartilhamento de atividade" width="220"><br><sub>Compartilhamento</sub></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="docs/images/reforestation-project-tanzania.png" alt="Projeto de reflorestamento na Tanzânia" width="220"><br><sub>Projeto na Tanzânia</sub></td>
+    <td align="center"><img src="docs/images/reforestation-project-uganda.png" alt="Projeto de reflorestamento em Uganda" width="220"><br><sub>Projeto em Uganda</sub></td>
+    <td align="center"><img src="docs/images/environmental-education.png" alt="Conteúdo de educação ambiental" width="220"><br><sub>Educação ambiental</sub></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="docs/images/group-challenge.png" alt="Desafio em grupo da versão oficial" width="220"><br><sub>Desafio em grupo — versão oficial</sub></td>
+    <td align="center"><img src="docs/images/global-forest.png" alt="Floresta global da versão oficial" width="220"><br><sub>Floresta global — versão oficial</sub></td>
+    <td></td>
+  </tr>
+</table>
 
 ## O que está disponível
 
