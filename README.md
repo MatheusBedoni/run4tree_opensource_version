@@ -4,6 +4,12 @@ Run4Tree é um aplicativo Flutter de corrida, caminhada e ciclismo que transform
 
 Esta é a edição open source do projeto. Ela mantém a experiência individual e os recursos essenciais do aplicativo; módulos sociais e operacionais proprietários não fazem parte deste repositório.
 
+## Baixe o aplicativo oficial
+
+A versão oficial e completa do Run4Tree está disponível na Google Play:
+
+[Baixar o Run4Tree na Google Play](https://play.google.com/store/apps/details?id=com.run4tree.app)
+
 ## O que está disponível
 
 - registro de corrida, caminhada e ciclismo com GPS;
