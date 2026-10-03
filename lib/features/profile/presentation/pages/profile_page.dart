@@ -17,7 +17,6 @@ import 'package:run_4_tree/features/stickers/presentation/controllers/sticker_co
 import 'package:run_4_tree/features/stickers/presentation/controllers/sticker_controller_factory.dart';
 import 'package:run_4_tree/features/stickers/presentation/pages/sticker_collection_page.dart';
 import 'package:run_4_tree/features/stickers/presentation/widgets/sticker_avatar.dart';
-import 'package:run_4_tree/features/global_forest/data/services/feed_preferences.dart';
 
 class ProfilePage extends StatefulWidget {
   /// Controller da coleção de adesivos. A [HomePage] passa o dela para que a
@@ -32,9 +31,6 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  final FeedPreferences _feedPreferences = FeedPreferences();
-  bool _feedUpdates = false;
-
   late final ProfileController _controller;
   late final StickerController _stickerController;
 
@@ -44,9 +40,6 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   void initState() {
     super.initState();
-    _feedPreferences.feedUpdatesEnabled().then((enabled) {
-      if (mounted) setState(() => _feedUpdates = enabled);
-    });
     final repository = ProfileRepositoryImpl();
     _controller = ProfileController(
       GetProfileUseCase(repository),
@@ -198,8 +191,6 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   const SizedBox(height: 28),
                   _buildStickersSection(),
-                  const SizedBox(height: 24),
-                  _buildNotificationsSection(),
                   const SizedBox(height: 24),
                   _buildLegalSection(),
                   const SizedBox(height: 24),
@@ -383,6 +374,8 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
+  // Mantido para a futura reativação dos cards de estatísticas do perfil.
+  // ignore: unused_element
   Widget _buildStatsGrid(ProfileEntity profile) {
     return Row(
       children: [
@@ -466,6 +459,8 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
+  // Mantido para a futura reativação dos dados corporais no perfil.
+  // ignore: unused_element
   Widget _buildBodyInfoCard(ProfileEntity profile) {
     return Container(
       width: double.infinity,
@@ -549,50 +544,6 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Widget _buildBodyInfoDivider() {
     return Container(width: 1, height: 36, color: AppColors.background);
-  }
-
-  /// Opt-in do push "Novidades do feed" (ver docs/global_feed.md).
-  Widget _buildNotificationsSection() {
-    final l10n = AppLocalizations.of(context)!;
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.06),
-            blurRadius: 12,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: SwitchListTile(
-        value: _feedUpdates,
-        activeTrackColor: AppColors.primaryDark,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        secondary: const FaIcon(
-          FontAwesomeIcons.earthAmericas,
-          size: 18,
-          color: AppColors.primaryDark,
-        ),
-        title: Text(
-          l10n.feedUpdatesOptInTitle,
-          style: const TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w600,
-            color: AppColors.textPrimary,
-          ),
-        ),
-        subtitle: Text(
-          l10n.feedUpdatesOptInBody,
-          style: const TextStyle(fontSize: 12, color: AppColors.textSecondary),
-        ),
-        onChanged: (enabled) {
-          setState(() => _feedUpdates = enabled);
-          _feedPreferences.setFeedUpdates(enabled);
-        },
-      ),
-    );
   }
 
   Widget _buildLegalSection() {

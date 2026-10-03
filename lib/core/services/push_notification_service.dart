@@ -42,8 +42,7 @@ class PushNotificationService {
     }
   }
 
-  /// Liga este aparelho ao mesmo `uid` anônimo do Firebase usado nos desafios
-  /// em grupo — é assim que as Cloud Functions sabem para quem mandar push.
+  /// Liga o aparelho ao `uid` anônimo usado pelo pedido de plantio.
   Future<void> login(String uid) async {
     if (!_isInitialized) return;
     try {
@@ -54,7 +53,7 @@ class PushNotificationService {
     }
   }
 
-  /// Tags usadas para segmentar os envios (árvores, sementes, grupo...).
+  /// Tags usadas para segmentar os envios de árvores e sementes.
   Future<void> setTags(Map<String, String> tags) async {
     if (!_isInitialized || tags.isEmpty) return;
     try {
@@ -64,27 +63,6 @@ class PushNotificationService {
       debugPrint('[Push] setTags falhou: $e');
     }
   }
-
-  /// Opt-in "Novidades do feed": o servidor manda o push do feed só para
-  /// quem tem a tag `feed_updates = 1`.
-  Future<void> setFeedUpdates(bool enabled) async {
-    if (!_isInitialized) return;
-    try {
-      if (enabled) {
-        await OneSignal.User.addTagWithKey('feed_updates', '1');
-      } else {
-        await OneSignal.User.removeTag('feed_updates');
-      }
-      debugPrint('[Push] novidades do feed=$enabled');
-    } catch (e) {
-      debugPrint('[Push] tag feed_updates falhou: $e');
-    }
-  }
-
-  /// Item do feed aberto por um push `feed_post`, esperando a home abrir o
-  /// feed. A home consome (e limpa) quando está na tela — assim funciona
-  /// também com o app fechado, quando o push chega antes da splash sair.
-  final ValueNotifier<String?> pendingFeedItem = ValueNotifier<String?>(null);
 
   bool get hasPermission {
     try {
@@ -108,32 +86,20 @@ class PushNotificationService {
     }
   }
 
-  /// Push de árvore plantada (pessoal ou do grupo) abre o certificado, como o
-  /// texto promete; os demais só trazem o app para a frente.
+  /// Push de árvore plantada abre o certificado; os demais apenas trazem o app
+  /// para a frente.
   void _onNotificationClicked(OSNotificationClickEvent event) {
     final data = event.notification.additionalData;
     debugPrint(
       '[Push] notificação aberta: ${event.notification.title} dados=$data',
     );
-    final feedItemId = feedItemIdFrom(data);
-    if (feedItemId != null) {
-      pendingFeedItem.value = feedItemId;
-      return;
-    }
     final certificate = certificateUriFrom(data);
     if (certificate == null) return;
     launchUrl(certificate, mode: LaunchMode.externalApplication).then(
       (opened) => debugPrint('[Push] certificado aberto=$opened: $certificate'),
-      onError: (Object e) => debugPrint('[Push] falha ao abrir certificado: $e'),
+      onError: (Object e) =>
+          debugPrint('[Push] falha ao abrir certificado: $e'),
     );
-  }
-
-  /// Item do feed de um push `feed_post`; `null` para outros pushes.
-  @visibleForTesting
-  static String? feedItemIdFrom(Map<String, dynamic>? data) {
-    if (data == null || data['type'] != 'feed_post') return null;
-    final itemId = data['itemId'];
-    return itemId is String && itemId.isNotEmpty ? itemId : null;
   }
 
   /// Link do certificado de um push de árvore; `null` para outros pushes ou
@@ -141,8 +107,7 @@ class PushNotificationService {
   @visibleForTesting
   static Uri? certificateUriFrom(Map<String, dynamic>? data) {
     if (data == null) return null;
-    const treeTypes = {'personal_tree', 'group_tree'};
-    if (!treeTypes.contains(data['type'])) return null;
+    if (data['type'] != 'personal_tree') return null;
     final raw = data['certificateUrl'];
     if (raw is! String) return null;
     final uri = Uri.tryParse(raw);

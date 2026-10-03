@@ -13,7 +13,6 @@ import '../../domain/usecases/get_pending_trees_usecase.dart';
 import '../../domain/usecases/get_planted_trees_usecase.dart';
 import '../../domain/usecases/get_tree_progress_usecase.dart';
 import '../controllers/garden_controller.dart';
-import '../../../global_forest/presentation/pages/global_forest_page.dart';
 
 /// GardenPage — mostra a floresta real do usuário (árvores plantadas via
 /// Tree-Nation, financiadas pelos anúncios assistidos) e o progresso rumo
@@ -107,44 +106,13 @@ class GardenPageState extends State<GardenPage> {
                     progressPercent: progressPercent,
                   ),
                   const SizedBox(height: 28),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        AppLocalizations.of(context)!.gardenForestTitle,
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.textPrimary,
-                        ),
-                      ),
-                      TextButton.icon(
-                        onPressed: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => const GlobalForestPage(),
-                          ),
-                        ),
-                        icon: const FaIcon(
-                          FontAwesomeIcons.earthAmericas,
-                          size: 14,
-                          color: AppColors.primaryDark,
-                        ),
-                        label: Text(
-                          AppLocalizations.of(
-                            context,
-                          )!.gardenGlobalForestButton,
-                          style: const TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.primaryDark,
-                          ),
-                        ),
-                        style: TextButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(horizontal: 8),
-                        ),
-                      ),
-                    ],
+                  Text(
+                    AppLocalizations.of(context)!.gardenForestTitle,
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.textPrimary,
+                    ),
                   ),
                   const SizedBox(height: 14),
                   _buildForestGrid(plantedTrees, _controller.pendingTrees),

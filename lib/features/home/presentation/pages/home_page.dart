@@ -6,11 +6,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:run_4_tree/features/community/domain/entities/group_challenge_entity.dart';
-import 'package:run_4_tree/features/community/presentation/controllers/group_challenge_controller.dart';
-import 'package:run_4_tree/features/community/presentation/controllers/group_challenge_controller_factory.dart';
-import 'package:run_4_tree/features/community/presentation/pages/community_challenge_page.dart';
-import 'package:run_4_tree/features/community/presentation/widgets/community_challenge_button.dart';
 import 'package:run_4_tree/features/exercises/presentation/pages/exercises_page.dart';
 import 'package:run_4_tree/features/garden/presentation/pages/garden_page.dart';
 import 'package:run_4_tree/features/notifications/presentation/push_permission_prompt.dart';
@@ -20,14 +15,12 @@ import '../../../../../core/constants/demo_ads.dart';
 import '../../../../../core/constants/map_styles.dart';
 import '../../../../../core/database/app_database.dart';
 import '../../../../../core/observability/critical_flow_telemetry.dart';
-import '../../../../../core/services/push_notification_service.dart';
 import '../../../../../core/services/rewarded_interstitial_ad_service.dart';
 import '../../../../../core/theme/app_colors.dart';
 import '../../../../../l10n/generated/app_localizations.dart';
 import '../../../garden/data/repositories/tree_garden_repository_impl.dart';
 import '../../../garden/data/services/earned_trees.dart';
 import '../../../garden/presentation/pages/tree_celebration_page.dart';
-import '../../../global_forest/presentation/pages/global_forest_page.dart';
 import '../../../garden/domain/entities/tree_progress_entity.dart';
 import '../../../garden/domain/usecases/credit_ad_revenue_usecase.dart';
 import '../../../runs/data/datasources/run_session_local_datasource_impl.dart';
@@ -105,23 +98,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   late final AnimationController _pulseCtrl;
   late final Animation<double> _pulseAnim;
 
-  late final AnimationController _floatCtrl;
-  late final Animation<double> _floatAnim;
-
   // ─── Mapa ──────────────────────────────────────────────────────────────────
   GoogleMapController? _mapController;
 
   // ─── Adesivos (avatar + marcador do usuário no mapa) ───────────────────────
   late final StickerController _stickerController;
-
-  // ─── Desafio em grupo (atalho só aparece com desafio disponível) ───────────
-  late final GroupChallengeController _groupChallengeController;
-
-  /// Desafio escolhido em "Start a group exercise". Enquanto não é nulo, o
-  /// próximo exercício é do grupo: os anúncios viram sementes do grupo (e não
-  /// do anel pessoal) e o exercício conta no ranking. Limpo ao
-  /// fim do exercício.
-  GroupChallengeEntity? _groupExercise;
 
   /// Marcador do usuário, desenhado a partir do adesivo escolhido.
   BitmapDescriptor? _userMarkerIcon;
@@ -136,10 +117,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   StreamSubscription<Position>? _ambientLocationSub;
 
   Set<Marker> _markers = {};
-
-  // ─── Variáveis (preparadas para receber dados reais) ───────────────────────
-  String? _userAvatarUrl;
-  String? _mascotImageUrl;
 
   // Future que resolve para a posição inicial real do usuário (fallback: São Paulo)
   late final Future<CameraPosition> _initialCameraFuture;
@@ -196,19 +173,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     _stickerController.addListener(_onSelectedStickerChanged);
     _stickerController.load();
 
-    _groupChallengeController = createGroupChallengeController();
-    unawaited(_groupChallengeController.start());
-
     _earnedTreeSub = EarnedTrees.instance.stream.listen((tree) {
       _pendingCelebration = tree;
       unawaited(_maybeShowCelebration());
     });
 
     // Push do feed: abre o post (também quando o app abriu pelo push).
-    PushNotificationService.instance.pendingFeedItem.addListener(
-      _openPendingFeedItem,
-    );
-    WidgetsBinding.instance.addPostFrameCallback((_) => _openPendingFeedItem());
 
     // Resolve a posição real do usuário antes de montar o mapa
     _initialCameraFuture = _getInitialCameraPosition();
@@ -232,16 +202,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       begin: 0.95,
       end: 1.06,
     ).animate(CurvedAnimation(parent: _pulseCtrl, curve: Curves.easeInOut));
-
-    // Flutuação vertical do mascote
-    _floatCtrl = AnimationController(
-      duration: const Duration(milliseconds: 2400),
-      vsync: this,
-    )..repeat(reverse: true);
-    _floatAnim = Tween<double>(
-      begin: -6.0,
-      end: 6.0,
-    ).animate(CurvedAnimation(parent: _floatCtrl, curve: Curves.easeInOut));
   }
 
   @override
@@ -351,42 +311,21 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   @override
   void dispose() {
     _earnedTreeSub?.cancel();
-    PushNotificationService.instance.pendingFeedItem.removeListener(
-      _openPendingFeedItem,
-    );
     _runTimer?.cancel();
     _locationSub?.cancel();
     _ambientLocationSub?.cancel();
     _stickerController.removeListener(_onSelectedStickerChanged);
     _stickerController.dispose();
-    _groupChallengeController.dispose();
     _controller.removeListener(_onStatsLoaded);
     _controller.dispose();
     _progressAnimCtrl.dispose();
     _pulseCtrl.dispose();
-    _floatCtrl.dispose();
     _mapController?.dispose();
     super.dispose();
   }
 
   Future<void> _startTimer() async {
-    // O desafio pode ter encerrado desde que o modo grupo foi escolhido:
-    // nesse caso o exercício segue como pessoal.
-    final selectedGroup = _groupExercise;
-    final group = selectedGroup == null
-        ? null
-        : _groupChallengeController.openChallengeById(selectedGroup.id);
-    if (selectedGroup != null && group == null) {
-      setState(() => _groupExercise = null);
-    }
-
-    await _showBlockingRunAd(
-      placement: group != null
-          ? GroupChallengeController.adPlacementStart
-          : 'run_start',
-      phase: RunAdPhase.start,
-      group: group,
-    );
+    await _showBlockingRunAd(placement: 'run_start', phase: RunAdPhase.start);
     if (!mounted) return;
 
     setState(() => _runState = RunState.running);
@@ -394,20 +333,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       setState(() => _runSeconds++);
     });
     _startTracking();
-  }
-
-  /// Abre o feed no item de um push `feed_post`. No meio de um exercício, o
-  /// pedido espera: abrir outra tela ali atrapalharia a corrida.
-  void _openPendingFeedItem() {
-    final pending = PushNotificationService.instance.pendingFeedItem;
-    final itemId = pending.value;
-    if (itemId == null || !mounted || _runState != RunState.idle) return;
-    pending.value = null;
-    Navigator.of(context, rootNavigator: true).push(
-      MaterialPageRoute<void>(
-        builder: (_) => GlobalForestPage(highlightItemId: itemId),
-      ),
-    );
   }
 
   /// Mostra os parabéns da árvore conquistada, se o usuário está livre.
@@ -421,9 +346,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     }
     _pendingCelebration = null;
     await Navigator.of(context, rootNavigator: true).push(
-      MaterialPageRoute<void>(
-        builder: (_) => TreeCelebrationPage(tree: tree),
-      ),
+      MaterialPageRoute<void>(builder: (_) => TreeCelebrationPage(tree: tree)),
     );
     _gardenPageKey.currentState?.refresh();
   }
@@ -445,45 +368,17 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   Future<void> _stopTimer() async {
     _runTimer?.cancel();
 
-    // Captura antes do reset: o exercício em grupo é registrado com esses
-    // valores.
-    final groupExercise = _groupExercise;
-    final durationSeconds = _runSeconds;
-    final distanceKm = _runDistanceKm;
-    final exerciseType = _selectedExerciseType.name;
-
     // Salva a corrida no banco Drift antes de limpar o estado
     final savedRun = await _saveCurrentRun();
 
     _stopTracking();
 
-    // Registra no grupo em paralelo ao anúncio de fim; o resultado aparece
-    // quando o usuário volta para a home.
-    final groupWorkout = groupExercise == null
-        ? null
-        : _groupChallengeController.recordWorkout(
-            challengeId: groupExercise.id,
-            exerciseType: exerciseType,
-            durationSeconds: durationSeconds,
-            distanceKm: distanceKm,
-          );
-    final group = groupExercise == null
-        ? null
-        : _groupChallengeController.openChallengeById(groupExercise.id);
-
-    await _showBlockingRunAd(
-      placement: group != null
-          ? GroupChallengeController.adPlacementEnd
-          : 'run_end',
-      phase: RunAdPhase.finish,
-      group: group,
-    );
+    await _showBlockingRunAd(placement: 'run_end', phase: RunAdPhase.finish);
     if (!mounted) return;
 
     setState(() {
       _runState = RunState.idle;
       _runSeconds = 0;
-      _groupExercise = null;
     });
     _gardenPageKey.currentState?.refresh();
 
@@ -498,11 +393,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
     // Depois do resumo, os parabéns pela árvore conquistada nesta corrida.
     await _maybeShowCelebration();
-    _openPendingFeedItem();
-
-    if (groupWorkout != null && groupExercise != null) {
-      await _showGroupWorkoutResult(groupWorkout, groupExercise);
-    }
 
     // Terminou de se exercitar: momento em que o aviso de "sua árvore foi
     // plantada" faz sentido para quem ainda não permitiu notificações.
@@ -517,38 +407,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     if (mounted) await _syncStickersAndCelebrate();
   }
 
-  /// Avisa se o exercício entrou no ranking do grupo.
-  Future<void> _showGroupWorkoutResult(
-    Future<GroupWorkoutResult> pending,
-    GroupChallengeEntity group,
-  ) async {
-    final result = await pending;
-    if (!mounted) return;
-
-    final l10n = AppLocalizations.of(context)!;
-    final message = switch (result) {
-      GroupWorkoutResult.counted => l10n.communityWorkoutCounted(
-        group.title.isNotEmpty ? group.title : l10n.communityPageTitle,
-      ),
-      GroupWorkoutResult.tooShort => l10n.communityWorkoutTooShort,
-      GroupWorkoutResult.failed => l10n.communityWorkoutFailed,
-      GroupWorkoutResult.unavailable => null,
-    };
-    if (message == null) return;
-
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(message),
-        backgroundColor: result == GroupWorkoutResult.counted
-            ? AppColors.progressGreen
-            : null,
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        margin: const EdgeInsets.all(16),
-      ),
-    );
-  }
-
   /// Exibe um anúncio de vídeo (rewarded interstitial) bloqueante — usado nos
   /// momentos de início e fim de uma corrida. Se falhar ao carregar ou for
   /// fechado sem recompensa, o fluxo segue normalmente sem crédito de
@@ -556,28 +414,17 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   Future<void> _showBlockingRunAd({
     required String placement,
     required RunAdPhase phase,
-    GroupChallengeEntity? group,
   }) async {
     if (_isShowingRunAd) return;
     _isShowingRunAd = true;
 
-    // Base de comparação para mostrar quantas sementes ESTE anúncio rendeu —
-    // do grupo, no exercício em grupo; do anel pessoal, no resto.
+    // Base de comparação para mostrar quantas sementes este anúncio rendeu.
     final statsBefore = _controller.stats;
-    final overlayController = group != null
-        ? RunAdOverlayController.group(
-            phase: phase,
-            groupName: group.title.isNotEmpty
-                ? group.title
-                : AppLocalizations.of(context)!.communityPageTitle,
-            seedsCollected: group.seedsCollected,
-            seedsPerTree: group.seedsPerTree,
-          )
-        : RunAdOverlayController(
-            phase: phase,
-            progressBefore: statsBefore?.progressPercent,
-            treesBefore: statsBefore?.treesPlanted,
-          );
+    final overlayController = RunAdOverlayController(
+      phase: phase,
+      progressBefore: statsBefore?.progressPercent,
+      treesBefore: statsBefore?.treesPlanted,
+    );
 
     final startedAt = DateTime.now();
     var overlayVisible = false;
@@ -606,28 +453,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         'revenueUsd=${result.revenueUsd} estimada=${result.isEstimatedRevenue}',
       );
       if (result.success) {
-        if (group != null) {
-          // Exercício em grupo: a semente vai só para o grupo, com o recibo
-          // da verificação da RevenueCat. A gravação roda em segundo plano
-          // (pode esperar o intervalo das regras) sem segurar a corrida.
-          unawaited(
-            _groupChallengeController.creditVerifiedAd(
-              challengeId: group.id,
-              ad: result,
-            ),
-          );
-          unawaited(CriticalFlowTelemetry.seedRewarded(source: placement));
-          overlayController.markGroupRewarded(
-            GroupChallengeController.seedsPerAd,
-          );
-        } else {
-          final progress = await _creditAdRevenueUseCase(result.revenueUsd);
-          unawaited(CriticalFlowTelemetry.seedRewarded(source: placement));
-          _controller.applyTreeProgress(progress);
-          // Mostra o crédito antes de sair: é o momento em que o loop
-          // anúncio → sementes → árvore real fica visível para o usuário.
-          overlayController.markRewarded(progress);
-        }
+        final progress = await _creditAdRevenueUseCase(result.revenueUsd);
+        unawaited(CriticalFlowTelemetry.seedRewarded(source: placement));
+        _controller.applyTreeProgress(progress);
+        // Mostra o crédito antes de sair: é o momento em que o loop
+        // anúncio → sementes → árvore real fica visível para o usuário.
+        overlayController.markRewarded(progress);
         await Future<void>.delayed(_runAdRewardDuration);
       } else {
         debugPrint('Anúncio de $placement não exibido: ${result.errorMessage}');
@@ -663,10 +494,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   /// Chamado pelo [RunBannerAd] a cada crédito de receita durante a corrida.
   Future<void> _onBannerAdRevenue(double revenueUsd) async {
     debugPrint('[Ad:banner] revenueUsd=$revenueUsd');
-    // No exercício em grupo as sementes vão só para o grupo, e o banner não
-    // tem verificação para virar semente de grupo: a receita fica registrada
-    // na RevenueCat sob o placement do grupo, sem crédito pessoal.
-    if (_groupExercise != null) return;
     try {
       final progress = await _creditAdRevenueUseCase(revenueUsd);
       unawaited(CriticalFlowTelemetry.seedRewarded(source: 'run_banner'));
@@ -940,15 +767,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    ListenableBuilder(
-                      listenable: _groupChallengeController,
-                      builder: (context, _) =>
-                          _groupChallengeController.hasAvailableChallenge
-                          ? CommunityChallengeButton(
-                              onTap: _openCommunityChallenge,
-                            )
-                          : const SizedBox.shrink(),
-                    ),
                     const Spacer(),
                     ListenableBuilder(
                       listenable: _controller,
@@ -1153,159 +971,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             end: Alignment.topCenter,
             colors: [Color(0xCC000000), Colors.transparent],
           ),
-        ),
-      ),
-    );
-  }
-
-  // ─── Desafio em grupo ──────────────────────────────────────────────────────
-
-  void _openCommunityChallenge() {
-    Navigator.of(context, rootNavigator: true).push(
-      MaterialPageRoute<void>(
-        builder: (_) => CommunityChallengePage(
-          controller: _groupChallengeController,
-          onStartGroupExercise: _selectGroupExercise,
-        ),
-      ),
-    );
-  }
-
-  /// Vindo do botão do grupo: volta ao mapa com o modo grupo pronto — o
-  /// usuário escolhe o tipo de exercício e toca em Start.
-  void _selectGroupExercise(GroupChallengeEntity challenge) {
-    if (_runState != RunState.idle) return;
-    setState(() {
-      _groupExercise = challenge;
-      _selectedNavIndex = 0;
-    });
-  }
-
-  String _groupDisplayName(GroupChallengeEntity group) => group.title.isNotEmpty
-      ? group.title
-      : AppLocalizations.of(context)!.communityPageTitle;
-
-  /// Aviso acima dos controles: o próximo exercício é do grupo.
-  Widget _buildGroupExerciseBanner(GroupChallengeEntity group) {
-    final l10n = AppLocalizations.of(context)!;
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 28),
-      child: Container(
-        padding: const EdgeInsets.fromLTRB(12, 8, 4, 8),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: AppColors.accentOrange, width: 2),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withValues(alpha: 0.12),
-              blurRadius: 12,
-              offset: const Offset(0, 4),
-            ),
-          ],
-        ),
-        child: Row(
-          children: [
-            Container(
-              width: 34,
-              height: 34,
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [AppColors.accentOrange, AppColors.progressGreen],
-                ),
-              ),
-              child: const Center(
-                child: FaIcon(
-                  FontAwesomeIcons.peopleGroup,
-                  color: Colors.white,
-                  size: 15,
-                ),
-              ),
-            ),
-            const SizedBox(width: 10),
-            Expanded(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    l10n.homeGroupExerciseLabel,
-                    style: const TextStyle(
-                      fontSize: 10,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.accentOrange,
-                      letterSpacing: 1.2,
-                    ),
-                  ),
-                  Text(
-                    _groupDisplayName(group),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w700,
-                      color: AppColors.textPrimary,
-                    ),
-                  ),
-                  Text(
-                    l10n.homeGroupExerciseHint,
-                    style: const TextStyle(
-                      fontSize: 11,
-                      color: AppColors.textSecondary,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            IconButton(
-              tooltip: l10n.homeGroupExerciseCancel,
-              onPressed: () => setState(() => _groupExercise = null),
-              icon: const Icon(
-                Icons.close_rounded,
-                color: AppColors.textSecondary,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildHUDGroupChip(GroupChallengeEntity group) {
-    return Flexible(
-      child: Container(
-        margin: const EdgeInsets.only(left: 6),
-        padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 5),
-        decoration: BoxDecoration(
-          color: AppColors.accentOrange.withValues(alpha: 0.15),
-          borderRadius: BorderRadius.circular(99),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const FaIcon(
-              FontAwesomeIcons.peopleGroup,
-              size: 12,
-              color: AppColors.accentOrange,
-            ),
-            const SizedBox(width: 5),
-            Flexible(
-              child: Text(
-                _groupDisplayName(group),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
-                  fontSize: 10,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.accentOrange,
-                  letterSpacing: 0.6,
-                ),
-              ),
-            ),
-          ],
         ),
       ),
     );
@@ -1544,7 +1209,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             Row(
               children: [
                 _buildHUDExerciseChip(),
-                if (_groupExercise case final group?) _buildHUDGroupChip(group),
                 const Spacer(),
                 _buildHUDStatusPill(isPaused: isPaused, accent: accent),
               ],
@@ -1723,28 +1387,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             // Torna visível o que o banner credita: sem isso o progresso
             // sobe sozinho e o usuário não liga uma coisa à outra.
             ListenableBuilder(
-              listenable: Listenable.merge([
-                _controller,
-                _groupChallengeController,
-              ]),
+              listenable: _controller,
               builder: (context, _) {
-                final groupId = _groupExercise?.id;
-                if (groupId != null) {
-                  // No exercício em grupo, o contador mostra as sementes do
-                  // grupo rumo à próxima árvore dele.
-                  final group = _groupChallengeController.openChallengeById(
-                    groupId,
-                  );
-                  if (group == null || group.seedsPerTree <= 0) {
-                    return const SizedBox.shrink();
-                  }
-                  return RunSeedTicker(
-                    seeds: group.seedsCollected % group.seedsPerTree,
-                    treesPlanted: group.seedsCollected ~/ group.seedsPerTree,
-                    total: group.seedsPerTree,
-                  );
-                }
-
                 final stats = _controller.stats;
                 if (stats == null) return const SizedBox.shrink();
                 const total = TreeProgressEntity.seedsPerTree;
@@ -1772,9 +1416,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               ),
               child: RunBannerAd(
                 onAdRevenue: _onBannerAdRevenue,
-                placement: _groupExercise != null
-                    ? GroupChallengeController.bannerPlacement
-                    : 'run_banner',
+                placement: 'run_banner',
               ),
             ),
           ],
@@ -1887,10 +1529,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            if (_groupExercise case final group?) ...[
-              _buildGroupExerciseBanner(group),
-              const SizedBox(height: 12),
-            ],
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

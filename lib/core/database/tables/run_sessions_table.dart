@@ -26,7 +26,7 @@ class RunSessions extends Table {
   /// Ritmo (min/km).
   RealColumn get pace => real().withDefault(const Constant(0.0))();
 
-  /// Polyline serializada como JSON string (List<List<double>>).
+  /// Polyline serializada como JSON (`List<List<double>>`).
   TextColumn get polyline => text().withDefault(const Constant(''))();
 
   /// Temperatura no momento da corrida (ex: "25°C").

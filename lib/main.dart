@@ -18,7 +18,6 @@ import 'features/auth/presentation/pages/login_page.dart';
 import 'features/garden/data/services/planting_orders_sync.dart';
 import 'features/home/presentation/pages/home_page.dart';
 import 'features/onboarding/presentation/pages/onboarding_page.dart';
-import 'firebase_options.dart';
 import 'l10n/generated/app_localizations.dart';
 
 void main() async {
@@ -55,16 +54,12 @@ Future<void> _runApp() async {
   runApp(Run4TreeApp(initialRoute: initialRoute));
 }
 
-/// Inicializa o Firebase (Firestore do mural global e dos desafios em grupo,
-/// com login anônimo). Best-effort: se o app rodar numa plataforma sem
-/// `firebase_options.dart` configurado (ex: linux/web ainda não registrados)
-/// ou sem rede, essas funcionalidades simplesmente ficam indisponíveis em vez
-/// de travar o boot do app inteiro.
+/// Inicializa o Firebase usado no plantio e na sincronização das árvores.
+/// Best-effort: sem a configuração nativa da plataforma ou sem rede, o app
+/// continua disponível e mantém os dados locais.
 Future<void> _configureFirebase() async {
   try {
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
+    await Firebase.initializeApp();
     // Adianta o login anônimo sem segurar o boot: a home já o encontra pronto.
     unawaited(AnonymousAuthService.instance.ensureUserId());
   } catch (e) {
@@ -75,7 +70,7 @@ Future<void> _configureFirebase() async {
 /// Inicializa o OneSignal e liga o aparelho ao `uid` anônimo do Firebase, que
 /// é como as Cloud Functions escolhem para quem mandar o push quando uma
 /// árvore é plantada. A permissão NÃO é pedida aqui: ela só faz sentido
-/// depois de o usuário entrar num grupo ou terminar um exercício.
+/// depois de o usuário terminar um exercício.
 Future<void> _configurePushNotifications() async {
   await PushNotificationService.instance.initialize();
   // Não segura o boot: o login anônimo pode demorar ou falhar sem rede.

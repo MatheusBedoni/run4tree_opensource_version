@@ -1,37 +1,133 @@
-# Run4Tree 🌲🏃‍♂️
+# Run4Tree 🌱🏃
 
-**Run4Tree: um app de corrida que planta árvores reais.**
+Run4Tree é um aplicativo Flutter de corrida, caminhada e ciclismo que transforma atividade física e receita de anúncios em progresso para o plantio de árvores reais.
 
-O Run4Tree é um aplicativo sustentável e gamificado onde sua atividade física e seus quilômetros corridos se transformam em impacto ecológico real, ajudando no reflorestamento.
+Esta é a edição open source do projeto. Ela mantém a experiência individual e os recursos essenciais do aplicativo; módulos sociais e operacionais proprietários não fazem parte deste repositório.
 
-## 🚀 Atualizações Recentes e Ajustes
-- **Arquitetura (Clean Architecture):** O projeto foi estruturado seguindo os princípios de Clean Architecture para facilitar a escalabilidade e manutenção. Os diretórios já foram separados em `domain`, `data` e `presentation` (na feature de autenticação).
-- **Nova Tela de Login:** Interface moderna e atrativa (premium) implementada.
-- **Tematização Sustentável:** Adoção de uma paleta de cores verde (`#4CAF50` e `#006E1C`), combinada com a tipografia **Poppins** (`google_fonts`), para reforçar a temática da natureza e sustentabilidade.
-- **Widgets de Impacto:** Implementação inicial da barra de progresso visual de impacto, que exibe o número total de árvores plantadas pela comunidade de corredores.
-- **Integração Tree-Nation:** Preparação da arquitetura base para o plantio de árvores reais conectando com a API da Tree-Nation, incluindo o pacote HTTP (`dio`), gerenciamento de Token via `.env` e serviço dedicado (`TreeNationService`).
-- **Persistência Local (Offline):** Implementação de banco de dados local com `sqflite` para salvar o histórico de exercícios do usuário e permitir o funcionamento offline do app.
-- **Modelagem de Dados Estruturada:** Uso do `json_serializable` para garantir que modelos de usuários, exercícios e estatísticas de corrida sejam parseados de forma segura e confiável.
-## 🛠️ Tecnologias Utilizadas
-- [Flutter](https://flutter.dev/)
-- [Google Fonts](https://pub.dev/packages/google_fonts)
-- [Font Awesome Flutter](https://pub.dev/packages/font_awesome_flutter)
-- [Dio (HTTP Client)](https://pub.dev/packages/dio)
-- [Flutter Dotenv](https://pub.dev/packages/flutter_dotenv)
-- [Json Serializable / Annotation](https://pub.dev/packages/json_serializable)
-- [Sqflite (Local Database)](https://pub.dev/packages/sqflite)
-## 🏃 Como Rodar o Projeto
+## O que está disponível
 
-1. Certifique-se de ter o ambiente Flutter configurado.
-2. Acesse a pasta do projeto e baixe as dependências:
+- registro de corrida, caminhada e ciclismo com GPS;
+- mapa da rota, tempo, distância, ritmo, velocidade e calorias;
+- histórico, detalhes, estatísticas e recordes dos exercícios;
+- funcionamento offline com banco local Drift/SQLite;
+- jardim pessoal com sementes, árvores pendentes, árvores plantadas e certificados;
+- anúncios recompensados e banners que alimentam o progresso individual;
+- compartilhamento do resultado e da rota da atividade;
+- perfil, onboarding e coleção de adesivos/conquistas;
+- clima, notificações de plantio e telemetria opcional.
+
+## Escopo da edição open source
+
+Para manter uma base pública menor e mais simples, esta edição não inclui:
+
+- floresta global, feed e publicações sociais;
+- desafios, exercícios e rankings em grupo;
+- infraestrutura de backend e painéis administrativos usados em produção.
+
+As integrações externas foram implementadas de forma defensiva: quando uma configuração opcional não está disponível, o app preserva os dados locais e desativa apenas o recurso dependente dela. O plantio real, porém, depende de um backend compatível com o contrato das Cloud Functions usado pelo aplicativo.
+
+## Arquitetura
+
+O código é organizado por funcionalidades em `lib/features`, seguindo separação entre apresentação, domínio e dados. Serviços compartilhados, banco local, tema e utilitários ficam em `lib/core`.
+
+```text
+lib/
+├── core/                 # banco, serviços, tema e utilitários
+├── features/
+│   ├── auth/             # entrada no app
+│   ├── onboarding/       # perfil inicial
+│   ├── home/             # mapa e acompanhamento da atividade
+│   ├── runs/             # sessões e conclusão da atividade
+│   ├── exercises/        # histórico e estatísticas
+│   ├── garden/           # sementes e árvores pessoais
+│   ├── profile/          # perfil e conteúdo institucional
+│   ├── share/            # cartão de compartilhamento
+│   └── stickers/         # conquistas e avatar
+└── l10n/                 # internacionalização
+```
+
+## Tecnologias principais
+
+- Flutter e Dart;
+- Drift/SQLite para persistência local;
+- Google Maps e Geolocator para mapa e GPS;
+- Firebase Auth, Firestore e Cloud Functions para serviços remotos;
+- Google Mobile Ads e RevenueCat para o fluxo de receita;
+- OneSignal para notificações;
+- Sentry para observabilidade.
+
+## Pré-requisitos
+
+- Flutter compatível com Dart `^3.9.2`;
+- Android Studio ou Xcode configurado para a plataforma desejada;
+- uma chave do Google Maps;
+- configuração própria do Firebase para usar autenticação, sincronização e plantio remoto.
+
+O foco atual do aplicativo é Android e iOS. As demais pastas de plataforma são mantidas pelo Flutter, mas podem exigir configuração adicional das integrações nativas.
+
+## Como executar
+
+1. Clone o repositório e entre na pasta do projeto.
+
+2. Instale as dependências:
+
    ```bash
    flutter pub get
    ```
-3. Crie o arquivo `.env` na raiz do projeto (use o `.env.example` como base) e preencha as variáveis de ambiente, incluindo a chave da API da Tree-Nation:
+
+3. Crie o arquivo local de ambiente a partir do exemplo:
+
+   macOS/Linux:
+
    ```bash
    cp .env.example .env
    ```
-4. Rode o aplicativo:
+
+   Windows PowerShell:
+
+   ```powershell
+   Copy-Item .env.example .env
+   ```
+
+4. No Android, adicione ao arquivo `android/local.properties`:
+
+   ```properties
+   GOOGLE_MAPS_API_KEY=sua_chave_do_google_maps
+   ADMOB_API_KEY=ca-app-pub-3940256099942544~3347511713
+   ```
+
+   O valor de AdMob acima é o App ID oficial de teste para Android. Use IDs próprios antes de distribuir o aplicativo.
+
+5. Configure um projeto Firebase seu e adicione os arquivos nativos, que não são versionados:
+
+   - Android: `android/app/google-services.json`;
+   - iOS: `ios/Runner/GoogleService-Info.plist`.
+
+   Ative a autenticação anônima caso pretenda usar o fluxo remoto de plantio.
+
+6. Execute o app:
+
    ```bash
    flutter run
    ```
+
+Para explorar a interface sem anúncios reais, defina `DEMO_ADS=true` no `.env`. Nunca inclua segredos nesse arquivo: ele é empacotado junto com o aplicativo.
+
+## Qualidade e testes
+
+```bash
+flutter analyze
+flutter test
+```
+
+Os testes cobrem regras de adesivos, exercícios, compartilhamento, projetos de reflorestamento, persistência e fluxos relacionados ao plantio.
+
+## Observações sobre produção
+
+- substitua IDs de teste do AdMob antes de publicar;
+- mantenha tokens privados e credenciais administrativas somente no backend;
+- revise as políticas de privacidade e os textos legais para a sua distribuição;
+- configure regras, índices e funções do Firebase de acordo com o seu próprio backend;
+- valide permissões e chaves separadamente em Android e iOS.
+
+Contribuições são bem-vindas por meio de issues e pull requests.

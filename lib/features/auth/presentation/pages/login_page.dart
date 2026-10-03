@@ -92,8 +92,8 @@ class _LoginPageState extends State<LoginPage>
                               borderRadius: BorderRadius.circular(40),
                               boxShadow: [
                                 BoxShadow(
-                                  color: AppColors.primaryDark.withOpacity(
-                                    0.08,
+                                  color: AppColors.primaryDark.withValues(
+                                    alpha: 0.08,
                                   ),
                                   blurRadius: 30,
                                   offset: const Offset(0, 12),
@@ -340,11 +340,11 @@ class _LoginPageState extends State<LoginPage>
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
-        color: AppColors.white.withOpacity(0.85),
+        color: AppColors.white.withValues(alpha: 0.85),
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.04),
+            color: Colors.black.withValues(alpha: 0.04),
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),

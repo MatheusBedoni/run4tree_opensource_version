@@ -13,16 +13,6 @@ void main() {
       expect(uri, Uri.parse('https://tree-nation.com/certificate/42'));
     });
 
-    test('push de árvore do grupo também abre o certificado', () {
-      final uri = PushNotificationService.certificateUriFrom({
-        'type': 'group_tree',
-        'challengeId': 'setembro',
-        'certificateUrl': 'https://tree-nation.com/certificate/7',
-      });
-
-      expect(uri?.host, 'tree-nation.com');
-    });
-
     test('outros pushes não abrem nada', () {
       expect(
         PushNotificationService.certificateUriFrom({

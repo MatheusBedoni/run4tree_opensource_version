@@ -8,16 +8,13 @@ import '../../../l10n/generated/app_localizations.dart';
 
 /// Momento em que o app pede a permissão — muda só o texto de apoio.
 enum PushPromptReason {
-  /// Acabou de entrar num desafio em grupo.
-  joinedGroup,
-
   /// Acabou de terminar um exercício.
   finishedExercise,
 }
 
 /// Pede a permissão de notificação **depois** de um momento que dá sentido a
-/// ela, e não no primeiro segundo do app: quem acabou de entrar num grupo ou
-/// de se exercitar entende por que vale receber o aviso.
+/// ela, e não no primeiro segundo do app: quem acabou de se exercitar entende
+/// por que vale receber o aviso.
 ///
 /// Explica antes de abrir o diálogo do sistema e só pergunta uma vez por
 /// instalação — inclusive para quem recusou.
@@ -52,10 +49,7 @@ class _PushPermissionDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final body = switch (reason) {
-      PushPromptReason.joinedGroup => l10n.pushPromptBodyGroup,
-      PushPromptReason.finishedExercise => l10n.pushPromptBodyExercise,
-    };
+    final body = l10n.pushPromptBodyExercise;
 
     return AlertDialog(
       backgroundColor: Colors.white,

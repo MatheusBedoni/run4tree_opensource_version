@@ -10,7 +10,7 @@ class AppTheme {
         seedColor: AppColors.primaryLight,
         primary: AppColors.primaryLight,
         secondary: AppColors.primaryDark,
-        background: AppColors.background,
+        surface: AppColors.background,
       ),
       scaffoldBackgroundColor: AppColors.background,
       textTheme: GoogleFonts.montserratTextTheme().copyWith(

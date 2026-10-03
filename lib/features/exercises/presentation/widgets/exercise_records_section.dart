@@ -6,7 +6,6 @@ import '../../../../l10n/generated/app_localizations.dart';
 import '../../../runs/domain/entities/run_session_entity.dart';
 import '../../domain/entities/exercise_stats.dart';
 import '../utils/exercise_formatters.dart';
-import 'exercise_section_header.dart';
 
 /// Seção "Recordes": lista horizontal com a melhor marca do usuário em cada
 /// métrica, no mesmo formato dos cards de destaque do app (círculo com ícone,
@@ -169,53 +168,6 @@ class _RecordBadge extends StatelessWidget {
         border: Border.all(color: AppColors.progressTrack, width: 4),
       ),
       child: Icon(recordIcon(type), color: AppColors.accentOrange, size: 32),
-    );
-  }
-}
-
-class _RecordRow extends StatelessWidget {
-  final ExerciseRecord record;
-  final VoidCallback onTap;
-
-  const _RecordRow({required this.record, required this.onTap});
-
-  @override
-  Widget build(BuildContext context) {
-    final unit = recordUnit(context, record.type);
-    final value = recordValue(context, record);
-
-    return ListTile(
-      onTap: onTap,
-      contentPadding: EdgeInsets.zero,
-      leading: Container(
-        width: 44,
-        height: 44,
-        decoration: const BoxDecoration(
-          shape: BoxShape.circle,
-          color: AppColors.progressTrack,
-        ),
-        child: Icon(recordIcon(record.type), color: AppColors.primaryDark),
-      ),
-      title: Text(
-        recordLabel(context, record.type),
-        style: const TextStyle(
-          color: AppColors.textPrimary,
-          fontWeight: FontWeight.w600,
-          fontSize: 14,
-        ),
-      ),
-      subtitle: Text(
-        labelForExerciseType(context, record.run.exerciseType),
-        style: const TextStyle(color: AppColors.textSecondary, fontSize: 12),
-      ),
-      trailing: Text(
-        unit == null ? value : '$value $unit',
-        style: const TextStyle(
-          color: AppColors.textPrimary,
-          fontWeight: FontWeight.w800,
-          fontSize: 15,
-        ),
-      ),
     );
   }
 }
