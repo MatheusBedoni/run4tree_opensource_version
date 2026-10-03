@@ -1,130 +1,132 @@
+**English** | [Português](README.pt-BR.md)
+
 <p align="center">
-  <img src="docs/images/run4tree-logo.png" alt="Logo do Run4Tree" width="180">
+  <img src="docs/images/run4tree-logo.png" alt="Run4Tree logo" width="180">
 </p>
 
 <h1 align="center">Run4Tree 🌱🏃</h1>
 
-Run4Tree é um aplicativo Flutter de corrida, caminhada e ciclismo que transforma atividade física e receita de anúncios em progresso para o plantio de árvores reais.
+Run4Tree is a Flutter app for running, walking, and cycling that turns physical activity and advertising revenue into progress toward planting real trees.
 
-Esta é a edição open source do projeto. Ela mantém a experiência individual e os recursos essenciais do aplicativo; módulos sociais e operacionais proprietários não fazem parte deste repositório.
+This is the open-source edition of the project. It preserves the individual experience and the app's essential features; proprietary social and operational modules are not included in this repository.
 
-## Baixe o aplicativo oficial
+## Download the official app
 
-A versão oficial e completa do Run4Tree está disponível na Google Play:
+The official, complete version of Run4Tree is available on Google Play:
 
-[Baixar o Run4Tree na Google Play](https://play.google.com/store/apps/details?id=com.run4tree.app)
+[Download Run4Tree on Google Play](https://play.google.com/store/apps/details?id=com.run4tree.app)
 
-## Veja o Run4Tree em ação
+## See Run4Tree in action
 
-Clique na imagem para assistir à demonstração no YouTube:
+Click the image below to watch the demo on YouTube:
 
 <p align="center">
   <a href="https://www.youtube.com/shorts/NXp-ivzOAGs">
-    <img src="https://img.youtube.com/vi/NXp-ivzOAGs/hqdefault.jpg" alt="Assistir à demonstração do Run4Tree no YouTube" width="520">
+    <img src="https://img.youtube.com/vi/NXp-ivzOAGs/hqdefault.jpg" alt="Watch the Run4Tree demo on YouTube" width="520">
   </a>
 </p>
 
-[Assistir ao vídeo no YouTube](https://www.youtube.com/shorts/NXp-ivzOAGs)
+[Watch the video on YouTube](https://www.youtube.com/shorts/NXp-ivzOAGs)
 
-## Imagens do aplicativo oficial
+## Official app screenshots
 
-As capturas abaixo apresentam a experiência completa disponível no aplicativo oficial. Alguns recursos exibidos, como desafios em grupo e floresta global, não fazem parte desta edição open source.
+The screenshots below showcase the complete experience available in the official app. Some features shown here, including group challenges and the global forest, are not part of this open-source edition.
 
 <table>
   <tr>
-    <td align="center"><img src="docs/images/activity-map.png" alt="Mapa e acompanhamento de atividade" width="220"><br><sub>Mapa e atividade</sub></td>
-    <td align="center"><img src="docs/images/progress.jpeg" alt="Progresso e histórico de exercícios" width="220"><br><sub>Progresso e histórico</sub></td>
-    <td align="center"><img src="docs/images/personal-garden.jpeg" alt="Jardim pessoal" width="220"><br><sub>Jardim pessoal</sub></td>
+    <td align="center"><img src="docs/images/activity-map.png" alt="Activity tracking map" width="220"><br><sub>Map and activity tracking</sub></td>
+    <td align="center"><img src="docs/images/progress.jpeg" alt="Exercise progress and history" width="220"><br><sub>Progress and history</sub></td>
+    <td align="center"><img src="docs/images/personal-garden.jpeg" alt="Personal garden" width="220"><br><sub>Personal garden</sub></td>
   </tr>
   <tr>
-    <td align="center"><img src="docs/images/profile.png" alt="Perfil do usuário" width="220"><br><sub>Perfil</sub></td>
-    <td align="center"><img src="docs/images/sticker-collection.jpeg" alt="Coleção de adesivos" width="220"><br><sub>Coleção de adesivos</sub></td>
-    <td align="center"><img src="docs/images/share-progress.jpeg" alt="Compartilhamento de atividade" width="220"><br><sub>Compartilhamento</sub></td>
+    <td align="center"><img src="docs/images/profile.png" alt="User profile" width="220"><br><sub>Profile</sub></td>
+    <td align="center"><img src="docs/images/sticker-collection.jpeg" alt="Sticker collection" width="220"><br><sub>Sticker collection</sub></td>
+    <td align="center"><img src="docs/images/share-progress.jpeg" alt="Activity sharing" width="220"><br><sub>Activity sharing</sub></td>
   </tr>
   <tr>
-    <td align="center"><img src="docs/images/reforestation-project-tanzania.png" alt="Projeto de reflorestamento na Tanzânia" width="220"><br><sub>Projeto na Tanzânia</sub></td>
-    <td align="center"><img src="docs/images/reforestation-project-uganda.png" alt="Projeto de reflorestamento em Uganda" width="220"><br><sub>Projeto em Uganda</sub></td>
-    <td align="center"><img src="docs/images/environmental-education.png" alt="Conteúdo de educação ambiental" width="220"><br><sub>Educação ambiental</sub></td>
+    <td align="center"><img src="docs/images/reforestation-project-tanzania.png" alt="Reforestation project in Tanzania" width="220"><br><sub>Project in Tanzania</sub></td>
+    <td align="center"><img src="docs/images/reforestation-project-uganda.png" alt="Reforestation project in Uganda" width="220"><br><sub>Project in Uganda</sub></td>
+    <td align="center"><img src="docs/images/environmental-education.png" alt="Environmental education content" width="220"><br><sub>Environmental education</sub></td>
   </tr>
   <tr>
-    <td align="center"><img src="docs/images/group-challenge.png" alt="Desafio em grupo da versão oficial" width="220"><br><sub>Desafio em grupo — versão oficial</sub></td>
-    <td align="center"><img src="docs/images/global-forest.png" alt="Floresta global da versão oficial" width="220"><br><sub>Floresta global — versão oficial</sub></td>
+    <td align="center"><img src="docs/images/group-challenge.png" alt="Group challenge in the official app" width="220"><br><sub>Group challenge — official app</sub></td>
+    <td align="center"><img src="docs/images/global-forest.png" alt="Global forest in the official app" width="220"><br><sub>Global forest — official app</sub></td>
     <td></td>
   </tr>
 </table>
 
-## O que está disponível
+## Available features
 
-- registro de corrida, caminhada e ciclismo com GPS;
-- mapa da rota, tempo, distância, ritmo, velocidade e calorias;
-- histórico, detalhes, estatísticas e recordes dos exercícios;
-- funcionamento offline com banco local Drift/SQLite;
-- jardim pessoal com sementes, árvores pendentes, árvores plantadas e certificados;
-- anúncios recompensados e banners que alimentam o progresso individual;
-- compartilhamento do resultado e da rota da atividade;
-- perfil, onboarding e coleção de adesivos/conquistas;
-- clima, notificações de plantio e telemetria opcional.
+- GPS tracking for running, walking, and cycling;
+- route map, time, distance, pace, speed, and calorie tracking;
+- exercise history, details, statistics, and personal records;
+- offline support using a local Drift/SQLite database;
+- personal garden with seeds, pending trees, planted trees, and certificates;
+- rewarded ads and banners that contribute to individual progress;
+- activity result and route sharing;
+- profile, onboarding, and sticker/achievement collection;
+- weather, tree-planting notifications, and optional telemetry.
 
-## Escopo da edição open source
+## Open-source edition scope
 
-Para manter uma base pública menor e mais simples, esta edição não inclui:
+To keep the public codebase smaller and easier to understand, this edition does not include:
 
-- floresta global, feed e publicações sociais;
-- desafios, exercícios e rankings em grupo;
-- infraestrutura de backend e painéis administrativos usados em produção.
+- the global forest, social feed, or public posts;
+- group challenges, group activities, or rankings;
+- production backend infrastructure or administrative dashboards.
 
-As integrações externas foram implementadas de forma defensiva: quando uma configuração opcional não está disponível, o app preserva os dados locais e desativa apenas o recurso dependente dela. O plantio real, porém, depende de um backend compatível com o contrato das Cloud Functions usado pelo aplicativo.
+External integrations are implemented defensively: when an optional configuration is unavailable, the app preserves local data and disables only the feature that depends on it. Planting real trees, however, requires a backend compatible with the Cloud Functions contract used by the app.
 
-## Arquitetura
+## Architecture
 
-O código é organizado por funcionalidades em `lib/features`, seguindo separação entre apresentação, domínio e dados. Serviços compartilhados, banco local, tema e utilitários ficam em `lib/core`.
+The code is organized by feature under `lib/features`, with separate presentation, domain, and data layers. Shared services, the local database, themes, and utilities live under `lib/core`.
 
 ```text
 lib/
-├── core/                 # banco, serviços, tema e utilitários
+├── core/                 # database, services, theme, and utilities
 ├── features/
-│   ├── auth/             # entrada no app
-│   ├── onboarding/       # perfil inicial
-│   ├── home/             # mapa e acompanhamento da atividade
-│   ├── runs/             # sessões e conclusão da atividade
-│   ├── exercises/        # histórico e estatísticas
-│   ├── garden/           # sementes e árvores pessoais
-│   ├── profile/          # perfil e conteúdo institucional
-│   ├── share/            # cartão de compartilhamento
-│   └── stickers/         # conquistas e avatar
-└── l10n/                 # internacionalização
+│   ├── auth/             # app entry flow
+│   ├── onboarding/       # initial user profile
+│   ├── home/             # map and activity tracking
+│   ├── runs/             # activity sessions and completion
+│   ├── exercises/        # history and statistics
+│   ├── garden/           # personal seeds and trees
+│   ├── profile/          # profile and institutional content
+│   ├── share/            # activity sharing card
+│   └── stickers/         # achievements and avatar
+└── l10n/                 # internationalization
 ```
 
-## Tecnologias principais
+## Main technologies
 
-- Flutter e Dart;
-- Drift/SQLite para persistência local;
-- Google Maps e Geolocator para mapa e GPS;
-- Firebase Auth, Firestore e Cloud Functions para serviços remotos;
-- Google Mobile Ads e RevenueCat para o fluxo de receita;
-- OneSignal para notificações;
-- Sentry para observabilidade.
+- Flutter and Dart;
+- Drift/SQLite for local persistence;
+- Google Maps and Geolocator for maps and GPS;
+- Firebase Auth, Firestore, and Cloud Functions for remote services;
+- Google Mobile Ads and RevenueCat for the revenue flow;
+- OneSignal for notifications;
+- Sentry for observability.
 
-## Pré-requisitos
+## Requirements
 
-- Flutter compatível com Dart `^3.9.2`;
-- Android Studio ou Xcode configurado para a plataforma desejada;
-- uma chave do Google Maps;
-- configuração própria do Firebase para usar autenticação, sincronização e plantio remoto.
+- a Flutter version compatible with Dart `^3.9.2`;
+- Android Studio or Xcode configured for your target platform;
+- a Google Maps API key;
+- your own Firebase configuration for authentication, synchronization, and remote tree planting.
 
-O foco atual do aplicativo é Android e iOS. As demais pastas de plataforma são mantidas pelo Flutter, mas podem exigir configuração adicional das integrações nativas.
+The app currently focuses on Android and iOS. The other Flutter platform directories are retained, but their native integrations may require additional configuration.
 
-## Como executar
+## Getting started
 
-1. Clone o repositório e entre na pasta do projeto.
+1. Clone the repository and enter the project directory.
 
-2. Instale as dependências:
+2. Install the dependencies:
 
    ```bash
    flutter pub get
    ```
 
-3. Crie o arquivo local de ambiente a partir do exemplo:
+3. Create your local environment file from the example:
 
    macOS/Linux:
 
@@ -138,45 +140,45 @@ O foco atual do aplicativo é Android e iOS. As demais pastas de plataforma são
    Copy-Item .env.example .env
    ```
 
-4. No Android, adicione ao arquivo `android/local.properties`:
+4. On Android, add the following values to `android/local.properties`:
 
    ```properties
-   GOOGLE_MAPS_API_KEY=sua_chave_do_google_maps
+   GOOGLE_MAPS_API_KEY=your_google_maps_key
    ADMOB_API_KEY=ca-app-pub-3940256099942544~3347511713
    ```
 
-   O valor de AdMob acima é o App ID oficial de teste para Android. Use IDs próprios antes de distribuir o aplicativo.
+   The AdMob value above is Google's official Android test App ID. Replace it with your own ID before distributing the app.
 
-5. Configure um projeto Firebase seu e adicione os arquivos nativos, que não são versionados:
+5. Configure your own Firebase project and add the native files, which are not committed to this repository:
 
    - Android: `android/app/google-services.json`;
    - iOS: `ios/Runner/GoogleService-Info.plist`.
 
-   Ative a autenticação anônima caso pretenda usar o fluxo remoto de plantio.
+   Enable anonymous authentication if you intend to use the remote planting flow.
 
-6. Execute o app:
+6. Run the app:
 
    ```bash
    flutter run
    ```
 
-Para explorar a interface sem anúncios reais, defina `DEMO_ADS=true` no `.env`. Nunca inclua segredos nesse arquivo: ele é empacotado junto com o aplicativo.
+To explore the interface without real ads, set `DEMO_ADS=true` in `.env`. Never place secrets in this file: it is bundled with the application.
 
-## Qualidade e testes
+## Quality and tests
 
 ```bash
 flutter analyze
 flutter test
 ```
 
-Os testes cobrem regras de adesivos, exercícios, compartilhamento, projetos de reflorestamento, persistência e fluxos relacionados ao plantio.
+The test suite covers sticker rules, exercises, sharing, reforestation projects, persistence, and tree-planting flows.
 
-## Observações sobre produção
+## Production notes
 
-- substitua IDs de teste do AdMob antes de publicar;
-- mantenha tokens privados e credenciais administrativas somente no backend;
-- revise as políticas de privacidade e os textos legais para a sua distribuição;
-- configure regras, índices e funções do Firebase de acordo com o seu próprio backend;
-- valide permissões e chaves separadamente em Android e iOS.
+- replace AdMob test IDs before publishing;
+- keep private tokens and administrative credentials exclusively on the backend;
+- review the privacy policy and legal text for your own distribution;
+- configure Firebase rules, indexes, and functions for your backend;
+- validate permissions and API keys separately on Android and iOS.
 
-Contribuições são bem-vindas por meio de issues e pull requests.
+Contributions are welcome through issues and pull requests.
